@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precious — Glossy Skin &amp; Lip Essentials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pearl: #fff5fa;
+    --pearl-2: #ffeef6;
+    --blush: #ffd3e6;
+    --bubblegum: #ff8fc0;
+    --bubblegum-deep: #ff6bab;
+    --lilac: #dcb6f0;
+    --plum: #5a2745;
+    --plum-soft: #8a4d6e;
+    --rosegold: #e7b7a3;
+    --white: #ffffff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    font-family: 'Quicksand', sans-serif;
+    color: var(--plum);
+    background:
+      radial-gradient(circle at 15% 10%, #ffffff 0%, transparent 45%),
+      radial-gradient(circle at 85% 0%, var(--lilac) 0%, transparent 40%),
+      linear-gradient(160deg, var(--pearl) 0%, var(--pearl-2) 45%, var(--blush) 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  ::selection{ background: var(--bubblegum); color: #fff; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 20px 6vw;
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-bottom: 1px solid rgba(255,255,255,0.6);
+  }
+
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .brand .dot{
+    width:10px; height:10px; border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--bubblegum-deep) 70%);
+    box-shadow: 0 0 10px var(--bubblegum);
+  }
+
+  .nav-links{
+    display:flex;
+    gap: 34px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .nav-links a{ position:relative; padding-bottom:4px; }
+  .nav-links a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:0%; height:2px;
+    background: var(--bubblegum-deep);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position: relative;
+    min-height: 92vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 60px 6vw 40px;
+    overflow: hidden;
+  }
+
+  .eyebrow{
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--plum-soft);
+    opacity: 0;
+    animation: rise .8s ease forwards;
+    animation-delay: .1s;
+  }
+
+  h1.headline{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.95;
+    margin: 14px 0 6px;
+    background: linear-gradient(100deg, var(--plum) 20%, var(--bubblegum-deep) 45%, var(--lilac) 65%, var(--plum) 85%);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rise .9s ease forwards, shine 6s linear infinite 1s;
+    opacity: 0;
+    animation-delay: .2s, 1s;
+  }
+
+  h1.headline em{ font-style: italic; font-weight: 400; }
+
+  .subhead{
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: var(--plum-soft);
+    line-height: 1.6;
+    opacity: 0;
+    animation: rise .8s ease forwards;
+    animation-delay: .35s;
+  }
+
+  @keyframes rise{ from{ opacity:0; transform: translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes shine{ to{ background-position: -300% center; } }
+
+  /* glossy jelly blob — the signature element, tracks cursor gloss */
+  .blob-wrap{
+    margin-top: 46px;
+    width: min(230px, 45vw);
+    height: min(230px, 45vw);
+    opacity: 0;
+    animation: rise .9s ease forwards, float 6s ease-in-out infinite 1.1s;
+    animation-delay: .5s, 1.2s;
+  }
+
+  .blob{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 58% 42% 63% 37% / 41% 55% 45% 59%;
+    background: radial-gradient(circle at 35% 25%, #fff 0%, var(--bubblegum) 35%, var(--bubblegum-deep) 70%, var(--plum-soft) 100%);
+    box-shadow:
+      inset -14px -18px 40px rgba(90,39,69,0.35),
+      inset 10px 12px 30px rgba(255,255,255,0.6),
+      0 30px 60px -20px rgba(255,107,171,0.55);
+    cursor: pointer;
+    transition: border-radius 1.2s ease;
+  }
+
+  .blob .gloss{
+    position:absolute;
+    width: 46%;
+    height: 30%;
+    top: 16%;
+    left: 20%;
+    background: radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    filter: blur(1px);
+    transform: translate(0,0);
+    transition: transform .15s ease-out;
+    pointer-events:none;
+  }
+
+  .blob .label{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: #fff;
+    font-size: 1.05rem;
+    text-shadow: 0 2px 8px rgba(90,39,69,0.5);
+  }
+
+  @keyframes float{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-14px); }
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding: 90px 6vw; position: relative; }
+
+  .section-head{
+    text-align:center;
+    max-width: 560px;
+    margin: 0 auto 56px;
+  }
+
+  .section-head .eyebrow{ opacity:1; animation:none; }
+
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin: 10px 0 12px;
+    color: var(--plum);
+  }
+
+  .section-head p{ color: var(--plum-soft); line-height:1.6; }
+
+  /* ---------- SHADES / GLOSSY CARDS ---------- */
+  .shades{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .shade-card{
+    position: relative;
+    border-radius: 26px;
+    padding: 30px 24px 26px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 18px 40px -22px rgba(90,39,69,0.35);
+    overflow: hidden;
+    transition: transform .4s ease, box-shadow .4s ease;
+  }
+
+  .shade-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 26px 50px -18px rgba(255,107,171,0.5);
+  }
+
+  .shade-card::before{
+    content:'';
+    position:absolute;
+    top:-60%; left:-60%;
+    width:60%; height:220%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.85), transparent);
+    transform: rotate(20deg);
+    transition: left 1s ease;
+  }
+  .shade-card:hover::before{ left: 130%; }
+
+  .swatch{
+    width: 56px; height:56px;
+    border-radius: 50%;
+    margin-bottom: 18px;
+    box-shadow:
+      inset -6px -6px 12px rgba(0,0,0,0.15),
+      inset 6px 6px 10px rgba(255,255,255,0.7),
+      0 10px 20px -8px rgba(90,39,69,0.4);
+  }
+
+  .shade-card h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-style: italic;
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+  }
+
+  .shade-card p{
+    font-size: 0.92rem;
+    color: var(--plum-soft);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{
+    display:flex;
+    align-items:center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .about-visual{
+    flex: 1 1 320px;
+    min-height: 320px;
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent 55%),
+      linear-gradient(135deg, var(--lilac), var(--bubblegum) 60%, var(--rosegold));
+    box-shadow: inset 0 0 60px rgba(255,255,255,0.4), 0 30px 60px -30px rgba(90,39,69,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-visual::after{
+    content: 'PRECIOUS';
+    position:absolute;
+    bottom: 22px; left: 26px;
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 2px;
+    font-size: 1rem;
+  }
+
+  .about-text{ flex: 1 1 320px; }
+
+  .about-text .eyebrow{ opacity:1; animation:none; }
+
+  .about-text h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin: 10px 0 16px;
+  }
+
+  .about-text p{ color: var(--plum-soft); line-height:1.75; margin-bottom: 14px; }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    text-align:center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 22px;
+  }
+
+  .glossy-btn{
+    position: relative;
+    display:inline-block;
+    padding: 16px 42px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(180deg, var(--bubblegum) 0%, var(--bubblegum-deep) 55%, #e2578f 100%);
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,0.7),
+      inset 0 -8px 14px rgba(90,39,69,0.35),
+      0 16px 30px -12px rgba(255,107,171,0.7);
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .glossy-btn:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      inset 0 2px 3px rgba(255,255,255,0.8),
+      inset 0 -8px 14px rgba(90,39,69,0.4),
+      0 20px 36px -10px rgba(255,107,171,0.85);
+  }
+
+  .glossy-btn::before{
+    content:'';
+    position:absolute;
+    top: 6%;
+    left: 8%;
+    width: 84%;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0));
+    border-radius: 999px;
+    pointer-events:none;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding: 50px 6vw 60px;
+    color: var(--plum-soft);
+    font-size: 0.85rem;
+  }
+
+  footer .brand{
+    justify-content:center;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  @media (max-width: 720px){
+    .nav-links{ display:none; }
+    .about{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand"><span class="dot"></span> Precious</div>
+  <div class="nav-links">
+    <a href="#shades">Shades</a>
+    <a href="#about">About</a>
+    <a href="#cta">Get Precious</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">a little bit of shine, every day</div>
+  <h1 class="headline">Feel <em>Precious</em></h1>
+  <p class="subhead">Glossy skin and lip essentials made for soft light, long mirrors, and the five extra minutes you give yourself before walking out the door.</p>
+
+  <div class="blob-wrap">
+    <div class="blob" id="blob">
+      <div class="gloss" id="gloss"></div>
+      <div class="label">precious</div>
+    </div>
+  </div>
+</header>
+
+<section id="shades">
+  <div class="section-head">
+    <div class="eyebrow">the collection</div>
+    <h2>Five shades, one glow</h2>
+    <p>Each shade is named for a moment it's made for — swipe on, catch the light.</p>
+  </div>
+
+  <div class="shades">
+    <div class="shade-card">
+      <div class="swatch" style="background: radial-gradient(circle at 35% 30%, #fff, #ff9ec4 40%, #e2578f);"></div>
+      <h3>Bubblegum Hour</h3>
+      <p>A blush-pink gloss for golden hour selfies and second coffees.</p>
+    </div>
+    <div class="shade-card">
+      <div class="swatch" style="background: radial-gradient(circle at 35% 30%, #fff, #dcb6f0 40%, #a978c9);"></div>
+      <h3>Lilac Static</h3>
+      <p>Cool lilac shimmer, made for late nights that turn into later ones.</p>
+    </div>
+    <div class="shade-card">
+      <div class="swatch" style="background: radial-gradient(circle at 35% 30%, #fff, #e7b7a3 40%, #c98363);"></div>
+      <h3>Rosegold Whisper</h3>
+      <p>A warm nude sheen — the shade that goes with absolutely everything.</p>
+    </div>
+    <div class="shade-card">
+      <div class="swatch" style="background: radial-gradient(circle at 35% 30%, #fff, #ffd3e6 40%, #ff8fc0);"></div>
+      <h3>Sugar Petal</h3>
+      <p>Sheer, sweet, barely-there pink for days that need softening.</p>
+    </div>
+    <div class="shade-card">
+      <div class="swatch" style="background: radial-gradient(circle at 35% 30%, #fff, #5a2745 55%, #331329);"></div>
+      <h3>Midnight Plum</h3>
+      <p>Deep berry gloss for the nights you want to be remembered.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="about-visual"></div>
+    <div class="about-text">
+      <div class="eyebrow">our little philosophy</div>
+      <h2>Shine isn't extra. It's the point.</h2>
+      <p>Precious started as a single lip gloss mixed on a kitchen counter, chasing the exact shine of wet petals after rain. It's grown into a small collection — but the goal hasn't changed.</p>
+      <p>We build every formula around one idea: the glossiest version of you is still, completely, you. No cover-up, just catch-the-light.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta">
+    <div class="eyebrow">ready when you are</div>
+    <h2>Go on, be precious.</h2>
+    <button class="glossy-btn" id="ctaBtn">Shop the Glow</button>
+  </div>
+</section>
+
+<footer>
+  <div class="brand"><span class="dot"></span> Precious</div>
+  <p>&copy; 2026 Precious. Made with a little too much shine.</p>
+</footer>
+
+<script>
+  // Signature interaction: the hero blob's highlight follows the cursor,
+  // like light moving across a drop of gloss.
+  const blob = document.getElementById('blob');
+  const gloss = document.getElementById('gloss');
+
+  blob.addEventListener('mousemove', (e) => {
+    const rect = blob.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const dx = (x - 50) * 0.6;
+    const dy = (y - 50) * 0.6;
+    gloss.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+
+  blob.addEventListener('mouseleave', () => {
+    gloss.style.transform = 'translate(0,0)';
+  });
+
+  blob.addEventListener('click', () => {
+    blob.style.borderRadius =
+      blob.style.borderRadius === '50%'
+        ? '58% 42% 63% 37% / 41% 55% 45% 59%'
+        : '50%';
+  });
+
+  // Playful confirmation on the CTA button — a little wobble, no page needed.
+  const ctaBtn = document.getElementById('ctaBtn');
+  ctaBtn.addEventListener('click', () => {
+    ctaBtn.textContent = 'You\u2019re glowing \u2728';
+    ctaBtn.style.transform = 'scale(1.08)';
+    setTimeout(() => {
+      ctaBtn.style.transform = 'scale(1)';
+    }, 220);
+    setTimeout(() => {
+      ctaBtn.textContent = 'Shop the Glow';
+    }, 2200);
+  });
+
+  // Smooth-scroll for in-page nav (progressive enhancement on top of CSS scroll-behavior)
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+  </html>
+  
